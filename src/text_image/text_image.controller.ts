@@ -14,21 +14,22 @@ import { TextImageService } from './text_image.service';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const mm = '🧡 💛 💚 💙 TextImageController ';
+const mm = '🧡💛💚💙 TextImageController ';
 
-@Controller('textImage')
+@Controller("textImage")
 export class TextImageController {
   constructor(private readonly textImageService: TextImageService) {}
 
-  @Post('sendTextImagePrompt')
+  @Post("sendTextImagePrompt")
   @UseInterceptors(
-    FileInterceptor('file', { limits: { fileSize: 4 * 1024 * 1024 } }),
+    FileInterceptor("file", { limits: { fileSize: 4 * 1024 * 1024 } })
   )
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Body('prompt') prompt: string,
+    @Body("prompt") prompt: string,
+    @Body("linkResponse") linkResponse: string
   ): Promise<string> {
-    const uploadDir = path.join(process.cwd(), 'uploads');
+    const uploadDir = path.join(process.cwd(), "uploads");
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir);
       console.log(`${mm} directory created: ${uploadDir}`);
@@ -39,12 +40,13 @@ export class TextImageController {
     console.log(`${mm} image file written to: ${filePath}`);
 
     console.log(
-      `${mm} calling service to handle prompt: ${prompt} : with image attachment: ${file.originalname}`,
+      `${mm} calling service to handle prompt: ${prompt} : with image attachment: ${file.originalname}`
     );
     return this.textImageService.sendTextImagePrompt(
       filePath,
       file.mimetype,
       prompt,
+      linkResponse
     );
   }
 }

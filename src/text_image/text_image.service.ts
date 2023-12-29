@@ -10,29 +10,34 @@ export class TextImageService {
     path: string,
     mimeType: string,
     prompt: string,
+    linkResponse: string
   ): Promise<any> {
     //
     console.log(`${mm} sending prompt to Gemini AI: ${prompt}`);
     const key = process.env.GEMINI_API_KEY;
     const genAI = new GoogleGenerativeAI(key);
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' });
+    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    console.log(`${mm} Gemini AI API key: ${key}`);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { totalTokens } = await model.countTokens(prompt);
     console.log(`${mm} Gemini AI tokens: 🍎 ${totalTokens} 🍎`);
 
     const imageParts = [this.fileToGenerativePart(path, mimeType)];
 
-    const result = await model.generateContent([prompt, ...imageParts]);
+    let mPrompt: string;
+    if (linkResponse === 'true'){
+      mPrompt = prompt + this.getPromptSuffixList();
+    } else {
+      mPrompt = prompt + this.getPromptSuffixText();
+    }
+    const result = await model.generateContent([mPrompt, ...imageParts]);
     const response = result.response;
     const text = response.text();
     console.log(
       `${mm} 🥬🥬🥬 Gemini AI response: 🥬 ${JSON.stringify(
         response,
         null,
-        2,
-      )} 🥬`,
+        2
+      )} 🥬`
     );
     return text;
   }
@@ -40,9 +45,16 @@ export class TextImageService {
   fileToGenerativePart(path: string, mimeType: string) {
     return {
       inlineData: {
-        data: Buffer.from(fs.readFileSync(path)).toString('base64'),
+        data: Buffer.from(fs.readFileSync(path)).toString("base64"),
         mimeType,
       },
     };
+  }
+
+  getPromptSuffixList(): string {
+    return "\nAlso, tell me what is in the picture. Return response as a list of json objects with title, description, link";
+  }
+  getPromptSuffixText(): string {
+    return "\nAlso, tell me what is in the picture. Return response as a list of titled paragraphs";
   }
 }

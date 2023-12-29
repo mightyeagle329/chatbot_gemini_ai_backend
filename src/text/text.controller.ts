@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { TextService } from 'src/services/text/text.service';
+import { TextService } from './text.service';
 const mm = '🍎 🍎 🍎 TextController: 🍎 ';
 @Controller('text')
 export class TextController {
@@ -10,6 +10,7 @@ export class TextController {
     if (!prompt) {
       prompt = `${mm}Please enter a prompt`;
     }
+    //
     console.log(`${mm} sending prompt: ${prompt}`);
     return this.textService.sendPrompt(prompt);
   }
