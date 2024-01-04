@@ -27,24 +27,29 @@ export class TextImageController {
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Body("prompt") prompt: string,
+    @Body("mimeType") mimeType: string,
     @Body("linkResponse") linkResponse: string
   ): Promise<string> {
+    console.log(`${mm} image file coming in: ${file.buffer.length}`);
+    console.log(`${mm} linkResponse coming in: ${linkResponse}`);
     const uploadDir = path.join(process.cwd(), "uploads");
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir);
       console.log(`${mm} directory created: ${uploadDir}`);
     }
 
-    const filePath = path.join(uploadDir, file.originalname);
+    const filePath = path.join(uploadDir, "file");
     fs.writeFileSync(filePath, file.buffer);
-    console.log(`${mm} image file written to: ${filePath}`);
+    console.log(
+      `${mm} ...image file written to: ${filePath} - size: ${file.size} bytes`
+    );
 
     console.log(
-      `${mm} calling service to handle prompt: ${prompt} : with image attachment: ${file.originalname}`
+      `${mm} ... calling service to handle prompt: 💙💙💙💙 ${prompt} : with image attachment: ${file.originalname}`
     );
     return this.textImageService.sendTextImagePrompt(
       filePath,
-      file.mimetype,
+      mimeType,
       prompt,
       linkResponse
     );

@@ -55,7 +55,7 @@ export class ChatsService {
       );
     }
 
-    console.log(`${mm} 🥬🥬🥬 Gemini AI response: 🥬 ${response} 🥬`);
+    console.log(`${mm} 🥬🥬🥬 Gemini AI response, check json: 🥬 ${response} ... 🥬`);
     return response;
   }
 }
