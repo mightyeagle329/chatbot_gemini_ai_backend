@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "\n\n🔵🐦🔵🐦🔵🐦 Deploying SgelaAI on NestJS 🔵🐦🔵🐦🔵🐦"
 # Define variables
-PROJECT_ID="skunkworks-ai"
+PROJECT_ID="sgela-ai-33"
 IMAGE_NAME="sgelaai-image"
-REGION="europe-west2"
-SERVICE_NAME="sgela-ai"
+REGION="us-east4"
+SERVICE_NAME="sgela-ai-service"
 echo "\n🐦🐦🐦 Build the app ... 🔵🐦🔵🐦🔵🐦"
 npm run build
 echo "\n🐦🐦🐦 Build the Docker image ... 🔵🐦🔵🐦🔵🐦"
@@ -24,4 +24,4 @@ gcloud run deploy $SERVICE_NAME \
   --region $REGION \
   --allow-unauthenticated
 
-echo "🍎 🍎 🍎 🍎 🍎 🍎 🍎 🍎 🍎 Hopefully, we have deployed successfully"
+echo "🍎 🍎 🍎 🍎 🍎 🍎 🍎 🍎 🍎 Hopefully, we have deployed SgelaAI successfully"

@@ -1,8 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-// import { env } from 'process';
-// import dotenv from 'dotenv';
-// dotenv.config();
+//
 const mm = '🌀🌀🌀🌀 main';
 async function bootstrap() {
   console.log(`${mm} ... bootstrap started for Gemini Backend ...`);

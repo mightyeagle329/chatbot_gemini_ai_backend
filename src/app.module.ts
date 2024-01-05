@@ -12,15 +12,19 @@ import { TextController } from './text/text.controller';
 import { TextService } from './text/text.service';
 import { ChatsService } from './chats/chats.service';
 import { ChatsController } from './chats/chats.controller';
+import { ModelsModule } from './models/models.module';
+import { FirestoreController } from './models/models.controller';
+import { FirestoreService } from './models/models.service';
 
 @Module({
-  imports: [ConfigModule.forRoot(), TextModule, TextImageModule, ChatsModule,],
+  imports: [ConfigModule.forRoot(), TextModule, TextImageModule, ChatsModule, ModelsModule,],
   controllers: [
     AppController,
     TextController,
     ChatsController,
     TextImageController,
+    FirestoreController,
   ],
-  providers: [AppService, TextService, ChatsService, TextImageService],
+  providers: [AppService, TextService, ChatsService, TextImageService, FirestoreService],
 })
 export class AppModule {}

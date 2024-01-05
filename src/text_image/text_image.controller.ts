@@ -27,11 +27,14 @@ export class TextImageController {
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Body("prompt") prompt: string,
+    @Body("examLinkId") examLinkId: number,
     @Body("mimeType") mimeType: string,
     @Body("linkResponse") linkResponse: string
   ): Promise<string> {
     console.log(`${mm} image file coming in: ${file.buffer.length}`);
+    console.log(`${mm} examLinkId coming in: ${examLinkId}`);
     console.log(`${mm} linkResponse coming in: ${linkResponse}`);
+
     const uploadDir = path.join(process.cwd(), "uploads");
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir);
@@ -51,7 +54,8 @@ export class TextImageController {
       filePath,
       mimeType,
       prompt,
-      linkResponse
+      linkResponse,
+      examLinkId,
     );
   }
 }

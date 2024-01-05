@@ -1,16 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import { GenerateContentResult, GoogleGenerativeAI } from "@google/generative-ai";
 import * as fs from "fs";
-
+import { FirestoreService } from "src/models/models.service";
+import { AITransaction } from "src/models/transaction";
+import { v4 as uuidv4 } from "uuid";
 const mm = "🍎🍎🍎 TextImageService 🍎";
 
 @Injectable()
 export class TextImageService {
+  constructor(private firestoreService:FirestoreService){}
   async sendTextImagePrompt(
     path: string,
     mimeType: string,
     prompt: string,
-    linkResponse: string
+    linkResponse: string,
+    examLinkId: number,
   ): Promise<any> {
     //
     console.log(`${mm} sending prompt to Gemini AI: ${prompt}`);
@@ -44,12 +48,19 @@ export class TextImageService {
         🍎 imageParts tokens: ${tokensResponse.totalTokens} total: ${tokens}`
       );
       console.log(
-        `${mm} 🥬🥬🥬 Gemini AI result ...: 🥬 🍎 🍎 ${JSON.stringify(
+        `${mm} 🥬🥬🥬 Gemini AI result ... 🥬 🍎 🍎 ${JSON.stringify(
           result,
           null,
           2
         )} 🍎 🍎 🥬`
       );
+      //
+      if (examLinkId) {
+        const uuid: string = uuidv4();
+        const tx = new AITransaction(uuid, 
+        new Date().toISOString(),tokens,examLinkId,prompt,'');
+        this.firestoreService.addTransaction(tx);
+      }
       return {
         result: result,
         tokens: tokens,
