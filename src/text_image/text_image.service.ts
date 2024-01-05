@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import * as fs from 'fs';
+import { Injectable } from "@nestjs/common";
+import { GenerateContentResult, GoogleGenerativeAI } from "@google/generative-ai";
+import * as fs from "fs";
 
-const mm = '🍎🍎🍎 TextImageService 🍎';
+const mm = "🍎🍎🍎 TextImageService 🍎";
 
 @Injectable()
 export class TextImageService {
@@ -18,34 +18,46 @@ export class TextImageService {
     const genAI = new GoogleGenerativeAI(key);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const { totalTokens } = await model.countTokens(prompt);
-    console.log(`${mm} ... Gemini AI path: 🍎 ${path} 🍎 mimeType: ${mimeType}`);
-        console.log(`${mm} ... Gemini AI tokens: 🍎 ${totalTokens} 🍎`);
-
-
-    const imageParts = [this.fileToGenerativePart(path, mimeType)];
-
-    let mPrompt: string;
-    if (linkResponse === 'true'){
-      mPrompt = prompt + this.getPromptSuffixList();
-    } else {
-      mPrompt = prompt + this.getPromptSuffixText();
-    }
-        console.log(
-          `${mm} ... Gemini AI imageParts: 🍎 ${imageParts.length} 🍎`
-        );
-
-    const result = await model.generateContent([mPrompt, ...imageParts]);
-    const response = result.response;
-    const text = response.text();
     console.log(
-      `${mm} 🥬🥬🥬 Gemini AI result: 🥬 🍎 🍎 ${JSON.stringify(
-        result,
-        null,
-        2
-      )} 🍎 🍎 🥬`
+      `${mm} ... Gemini AI path: 🍎 ${path} 🍎 mimeType: ${mimeType}`
     );
-    return result;
+
+    try {
+      const imageParts = [this.fileToGenerativePart(path, mimeType)];
+
+      let mPrompt: string;
+      if (linkResponse === "true") {
+        mPrompt = prompt + this.getPromptSuffixList();
+      } else {
+        mPrompt = prompt + this.getPromptSuffixText();
+      }
+      console.log(`${mm} ... Gemini AI imageParts: 🍎 ${imageParts.length} 🍎`);
+
+      const result = await model.generateContent([mPrompt, ...imageParts]);
+      const { totalTokens } = await model.countTokens(prompt);
+      const tokensResponse = await model.countTokens(imageParts);
+
+      const tokens = tokensResponse.totalTokens + totalTokens;
+
+      console.log(
+        `${mm} ... Gemini AI prompt tokens: 🍎 ${totalTokens} 
+        🍎 imageParts tokens: ${tokensResponse.totalTokens} total: ${tokens}`
+      );
+      console.log(
+        `${mm} 🥬🥬🥬 Gemini AI result ...: 🥬 🍎 🍎 ${JSON.stringify(
+          result,
+          null,
+          2
+        )} 🍎 🍎 🥬`
+      );
+      return {
+        result: result,
+        tokens: tokens,
+      };
+    } catch (err) {
+      console.log(`${mm} ... Gemini AI ERROR: 🍎 ${err} 🍎`);
+      throw err;
+    }
   }
   // Converts local file information to a GoogleGenerativeAI.Part object.
   fileToGenerativePart(path: string, mimeType: string) {
@@ -64,3 +76,5 @@ export class TextImageService {
     return "\nAlso, tell me what is in the picture. Return response as a list of titled paragraphs";
   }
 }
+
+
