@@ -12,6 +12,6 @@ export class TextController {
     }
     //
     console.log(`${mm} sending prompt: ${prompt}`);
-    return this.textService.sendPrompt(prompt);
+    return this.textService.sendChatPrompt(prompt);
   }
 }

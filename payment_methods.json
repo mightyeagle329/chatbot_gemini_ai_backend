@@ -1,0 +1,1033 @@
+{
+  "status": {
+    "error_code": "",
+    "status": "SUCCESS",
+    "message": "",
+    "response_code": "",
+    "operation_id": "9ffcaf5d-c30a-4249-a847-f0dc4bcb738c"
+  },
+  "data": [
+    {
+      "type": "za_bidvestbank_bank",
+      "name": "Bidvest Bank Grow Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_bidvestbank_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_tymebank_bank",
+      "name": "TymeBank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_tymebank_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_absa_bank",
+      "name": "ABSA Bank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_absa_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_capitec_bank",
+      "name": "Capitec Bank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_capitec_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_fnb_bank",
+      "name": "FNB Bank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_fnb_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_mtnmomo_ewallet",
+      "name": "MTN MoMo",
+      "category": "ewallet",
+      "image": "https://iconslib.rapyd.net/checkout/za_mtnmomo_ewallet.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "Customer object",
+          "is_required": true,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{0,102}$",
+              "description": "Customer full name",
+              "is_required": true,
+              "is_updatable": false
+            },
+            {
+              "name": "phone_number",
+              "type": "string",
+              "regex": "",
+              "description": "Customer Phone Number",
+              "is_required": true,
+              "is_updatable": false
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "regex": "",
+              "description": "Customer email",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "regex": "",
+          "description": "Customer Description",
+          "is_required": false,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": false,
+      "is_online": false,
+      "is_refundable": false,
+      "minimum_expiration_seconds": 86400,
+      "maximum_expiration_seconds": 86400,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": 20000,
+          "minimum_amount": 5
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_africanbank_bank",
+      "name": "African Bank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_africanbank_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_nedbank_bank",
+      "name": "Nedbank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_nedbank_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_investec_bank",
+      "name": "Investec Bank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_investec_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_mastercard_card",
+      "name": "Mastercard",
+      "category": "card",
+      "image": "https://iconslib.rapyd.net/checkout/za_mastercard_card.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": true,
+      "payment_options": [
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with 'cus_'. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use 'Create Customer'",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[0-9a-zA-Z.:|?*,!&_ -]{1,128}$",
+              "description": "Customer's full name",
+              "is_required": true,
+              "is_updatable": false
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "regex": "^(?=.{1,128}$)([0-9a-zA-Z_.-]+@[a-zA-Z_]+?[.]{1}[a-zA-Z]{2,3})$",
+              "description": "Customer's email",
+              "is_required": false,
+              "is_updatable": false
+            },
+            {
+              "name": "phone_number",
+              "type": "string",
+              "regex": "^[+][0-9]{1,15}$",
+              "description": "Customer's phone number",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "",
+          "description": "URL where the customer is redirected for final steps in completing the operation.",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "",
+          "description": "URL where the customer is redirected in case of an error in the operation.",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^.{1,13}$",
+          "description": "A text description suitable for a customer's payment statement.",
+          "is_required": false
+        },
+        {
+          "name": "capture",
+          "type": "boolean",
+          "regex": "",
+          "description": "Determines when the payment is processed for capture.",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "initiation_type",
+          "type": "string",
+          "regex": "(customer_present|recurring|installment|unscheduled)",
+          "description": "It indicates the initiation type of the payment",
+          "is_required": "true",
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 604800,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": null
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_standard_bank",
+      "name": "Standard Bank Instant EFT",
+      "category": "bank_redirect",
+      "image": "https://iconslib.rapyd.net/checkout/za_standard_bank.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": false,
+      "payment_options": [
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The complete payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "^.{1,150}$",
+          "description": "The error payment redirect url",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with ’cus_’. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use ’Create Customer’",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[a-zA-Z ]{1,100}$",
+              "description": "Customer’s full name",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^[a-zA-Z0-9 ]{1,20}$",
+          "description": "The descriptor that will appear on the Customer’s bank statement",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "merchant_reference_id",
+          "type": "string",
+          "regex": "^.{1,20}$",
+          "description": "Identifier defined by the merchant for reference purposes",
+          "is_required": true,
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 3600,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": 1
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    },
+    {
+      "type": "za_visa_card",
+      "name": "Visa",
+      "category": "card",
+      "image": "https://iconslib.rapyd.net/checkout/za_visa_card.png",
+      "country": "ZA",
+      "payment_flow_type": "",
+      "currencies": ["ZAR"],
+      "status": 1,
+      "is_cancelable": true,
+      "payment_options": [
+        {
+          "name": "customer",
+          "type": "customer",
+          "regex": "",
+          "description": "ID of a customer object, a string starting with 'cus_'. The customer object must contain the fields listed as required, and can contain additional fields listed here.If the customer object does not exist yet, use 'Create Customer'",
+          "is_required": false,
+          "is_updatable": false,
+          "required_fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "regex": "^[0-9a-zA-Z.:|?*,!&_ -]{1,128}$",
+              "description": "Customer's full name",
+              "is_required": true,
+              "is_updatable": false
+            },
+            {
+              "name": "email",
+              "type": "string",
+              "regex": "^(?=.{1,128}$)([0-9a-zA-Z_.-]+@[a-zA-Z_]+?[.]{1}[a-zA-Z]{2,3})$",
+              "description": "Customer's email",
+              "is_required": false,
+              "is_updatable": false
+            },
+            {
+              "name": "phone_number",
+              "type": "string",
+              "regex": "^[+][0-9]{1,15}$",
+              "description": "Customer's phone number",
+              "is_required": false,
+              "is_updatable": false
+            }
+          ]
+        },
+        {
+          "name": "complete_payment_url",
+          "type": "string",
+          "regex": "",
+          "description": "URL where the customer is redirected for final steps in completing the operation.",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "error_payment_url",
+          "type": "string",
+          "regex": "",
+          "description": "URL where the customer is redirected in case of an error in the operation.",
+          "is_required": true,
+          "is_updatable": false
+        },
+        {
+          "name": "statement_descriptor",
+          "type": "string",
+          "regex": "^.{1,13}$",
+          "description": "A text description suitable for a customer's payment statement.",
+          "is_required": false
+        },
+        {
+          "name": "capture",
+          "type": "boolean",
+          "regex": "",
+          "description": "Determines when the payment is processed for capture.",
+          "is_required": false,
+          "is_updatable": false
+        },
+        {
+          "name": "initiation_type",
+          "type": "string",
+          "regex": "(customer_present|recurring|installment|unscheduled)",
+          "description": "It indicates the initiation type of the payment",
+          "is_required": "true",
+          "is_updatable": false
+        }
+      ],
+      "is_expirable": true,
+      "is_online": false,
+      "is_refundable": true,
+      "minimum_expiration_seconds": 0,
+      "maximum_expiration_seconds": 604800,
+      "virtual_payment_method_type": null,
+      "is_virtual": false,
+      "multiple_overage_allowed": false,
+      "amount_range_per_currency": [
+        {
+          "currency": "ZAR",
+          "maximum_amount": null,
+          "minimum_amount": null
+        }
+      ],
+      "is_tokenizable": false,
+      "supported_digital_wallet_providers": [],
+      "is_restricted": false,
+      "supports_subscription": false
+    }
+  ]
+}

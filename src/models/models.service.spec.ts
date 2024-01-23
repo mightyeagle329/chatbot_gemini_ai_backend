@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ModelsService } from './models.service';
+import { FirestoreService } from './models.service';
 
-describe('ModelsService', () => {
-  let service: ModelsService;
+describe("FirestoreService", () => {
+  let service: FirestoreService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ModelsService],
+      providers: [FirestoreService],
     }).compile();
 
-    service = module.get<ModelsService>(ModelsService);
+    service = module.get<FirestoreService>(FirestoreService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });

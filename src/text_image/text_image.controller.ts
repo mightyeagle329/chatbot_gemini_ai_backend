@@ -7,12 +7,16 @@ import {
   ArgumentMetadata,
   Injectable,
   PipeTransform,
+  UseFilters,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { TextImageService } from './text_image.service';
 import * as fs from 'fs';
 import * as path from 'path';
+import { GeminiApiExceptionFilter } from 'src/gemini.exception.filter';
 
 const mm = '🧡💛💚💙 TextImageController ';
 
@@ -20,6 +24,7 @@ const mm = '🧡💛💚💙 TextImageController ';
 export class TextImageController {
   constructor(private readonly textImageService: TextImageService) {}
 
+  @UseFilters(GeminiApiExceptionFilter)
   @Post("sendTextImagePrompt")
   @UseInterceptors(
     FileInterceptor("file", { limits: { fileSize: 4 * 1024 * 1024 } })
@@ -30,34 +35,48 @@ export class TextImageController {
     @Body("examLinkId") examLinkId: number,
     @Body("mimeType") mimeType: string,
     @Body("linkResponse") linkResponse: string
-  ): Promise<string> {
+  ): Promise<any> {
     console.log(`${mm} image file coming in: ${file.buffer.length}`);
     console.log(`${mm} examLinkId coming in: ${examLinkId}`);
     console.log(`${mm} linkResponse coming in: ${linkResponse}`);
 
-    const uploadDir = path.join(process.cwd(), "uploads");
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir);
-      console.log(`${mm} directory created: ${uploadDir}`);
-    }
+    try {
+        const uploadDir = path.join(process.cwd(), "uploads");
+            if (!fs.existsSync(uploadDir)) {
+              fs.mkdirSync(uploadDir);
+              console.log(`${mm} directory created: ${uploadDir}`);
+            }
+            const filePath = path.join(uploadDir, "file");
+            fs.writeFileSync(filePath, file.buffer);
+            console.log(
+              `${mm} ...image file written to: ${filePath} - size: ${file.size} bytes`
+            );
 
-    const filePath = path.join(uploadDir, "file");
-    fs.writeFileSync(filePath, file.buffer);
-    console.log(
-      `${mm} ...image file written to: ${filePath} - size: ${file.size} bytes`
-    );
+            console.log(
+              `${mm} ... calling service to handle prompt: 💙💙💙💙 ${prompt} : with image attachment: ${file.originalname}`
+            );
+            const result = this.textImageService.sendTextImagePrompt(
+              filePath,
+              mimeType,
+              prompt,
+              linkResponse,
+              examLinkId
+            );
+            return result;
+        } catch (err) {
+            console.log(`We have a problem: ${err.message}`);
+            return {
+              statusCode: 501,
+              message: err,
+              date: new Date(),
+            }
+              // throw new HttpException(
+              //   `Error fetching from Gemini API: ${err}`,
+              //   HttpStatus.BAD_REQUEST
+              // );
 
-    console.log(
-      `${mm} ... calling service to handle prompt: 💙💙💙💙 ${prompt} : with image attachment: ${file.originalname}`
-    );
-    return this.textImageService.sendTextImagePrompt(
-      filePath,
-      mimeType,
-      prompt,
-      linkResponse,
-      examLinkId,
-    );
-  }
+        }
+      }
 }
 
 @Injectable()

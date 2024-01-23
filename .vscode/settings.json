@@ -1,9 +1,16 @@
 {
     "cSpell.words": [
         "examlink",
+        "expirable",
         "Firestore",
+        "gapi",
+        "idempotency",
+        "nestjs",
+        "openai",
+        "rapyd",
         "Sgela",
         "Textservice",
+        "tokenizable",
         "uuidv"
     ]
 }

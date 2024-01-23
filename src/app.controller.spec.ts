@@ -15,8 +15,10 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "<h1>SgelaAI</h1><p>The AI app for Students and Teachers</p>"', () => {
+      expect(appController.getHello()).toBe(
+        "<h1>SgelaAI</h1><p>The AI app for Students and Teachers</p>"
+      );
     });
   });
 });

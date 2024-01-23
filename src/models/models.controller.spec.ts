@@ -1,20 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ModelsController } from './models.controller';
-import { ModelsService } from './models.service';
+import { FirestoreController } from './models.controller';
+import { FirestoreService } from './models.service';
 
-describe('ModelsController', () => {
-  let controller: ModelsController;
+describe("FirestoreController", () => {
+  let controller: FirestoreController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ModelsController],
-      providers: [ModelsService],
+      controllers: [FirestoreController],
+      providers: [FirestoreService],
     }).compile();
 
-    controller = module.get<ModelsController>(ModelsController);
+    controller = module.get<FirestoreController>(FirestoreController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

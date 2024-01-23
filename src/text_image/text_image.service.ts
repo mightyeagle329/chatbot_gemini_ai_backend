@@ -1,20 +1,22 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UseFilters } from "@nestjs/common";
 import { GenerateContentResult, GoogleGenerativeAI } from "@google/generative-ai";
 import * as fs from "fs";
 import { FirestoreService } from "src/models/models.service";
 import { AITransaction } from "src/models/transaction";
 import { v4 as uuidv4 } from "uuid";
+import { GeminiApiExceptionFilter } from "src/gemini.exception.filter";
 const mm = "🍎🍎🍎 TextImageService 🍎";
 
 @Injectable()
 export class TextImageService {
-  constructor(private firestoreService:FirestoreService){}
+  constructor(private firestoreService: FirestoreService) {}
+//
   async sendTextImagePrompt(
     path: string,
     mimeType: string,
     prompt: string,
     linkResponse: string,
-    examLinkId: number,
+    examLinkId: number
   ): Promise<any> {
     //
     console.log(`${mm} sending prompt to Gemini AI: ${prompt}`);
@@ -55,21 +57,31 @@ export class TextImageService {
         )} 🍎 🍎 🥬`
       );
       //
-      if (examLinkId) {
-        const uuid: string = uuidv4();
-        const tx = new AITransaction(uuid, 
-        new Date().toISOString(),tokens,examLinkId,prompt,'');
-        this.firestoreService.addTransaction(tx);
-      }
+      this.newMethod(examLinkId, tokens, prompt);
       return {
         result: result,
         tokens: tokens,
       };
     } catch (err) {
-      console.log(`${mm} ... Gemini AI ERROR: 🍎 ${err} 🍎`);
-      throw err;
+      console.log(`${mm} ... 👿👿👿👿 throwing Gemini AI ERROR: 👿 ${err} 👿👿👿`);
+      throw new Error(err);
     }
   }
+  private newMethod(examLinkId: number, tokens: number, prompt: string) {
+    if (examLinkId) {
+      const uuid: string = uuidv4();
+      const tx = new AITransaction(
+        uuid,
+        new Date().toISOString(),
+        tokens,
+        examLinkId,
+        prompt,
+        ""
+      );
+      this.firestoreService.addTransaction(tx);
+    }
+  }
+
   // Converts local file information to a GoogleGenerativeAI.Part object.
   fileToGenerativePart(path: string, mimeType: string) {
     return {
