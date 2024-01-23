@@ -1,0 +1,189 @@
+{
+  "status": {
+    "error_code": "",
+    "status": "SUCCESS",
+    "message": "",
+    "response_code": "",
+    "operation_id": "188d50f8-5cba-4ce4-9824-ee8075c7f2a3"
+  },
+  "data": {
+    "type": "it_visa_card",
+    "fields": [
+      {
+        "name": "number",
+        "type": "string",
+        "regex": "",
+        "is_required": true,
+        "instructions": "card number"
+      },
+      {
+        "name": "expiration_month",
+        "type": "string",
+        "regex": "",
+        "is_required": true,
+        "instructions": "expiration month as string, 01-12"
+      },
+      {
+        "name": "expiration_year",
+        "type": "string",
+        "regex": "",
+        "is_required": true,
+        "instructions": "expiration year in to digits as string, 18-99"
+      },
+      {
+        "name": "cvv",
+        "type": "string",
+        "regex": "",
+        "is_required": true,
+        "instructions": "card cvv"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "regex": "",
+        "is_required": true,
+        "instructions": "card holder name"
+      },
+      {
+        "name": "network_reference_id",
+        "type": "string",
+        "regex": "",
+        "description": "Network Reference Id",
+        "is_required": false
+      },
+      {
+        "name": "recurrence_type",
+        "type": "string",
+        "regex": "(recurring|installment|unscheduled)",
+        "description": "Indicates how the token will be used. Required when this payment method is added to the customer profile. Values: 'unscheduled'=Individual unrelated payments. 'installment'=Regular payments for a defined number of payment cycles. 'recurring'=Regular payments for an indefinite period.",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "number_type",
+        "type": "string",
+        "regex": "(fpan|tpan)",
+        "description": "Determining if number is funding PAN or token PAN",
+        "is_required": false
+      }
+    ],
+    "payment_method_options": [
+      {
+        "name": "aft",
+        "type": "boolean",
+        "regex": "",
+        "description": "Allows the client to determine whether the request is an AFT request",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "3d_required",
+        "type": "boolean",
+        "regex": "",
+        "description": "Allows the client to determine whether the customer is required to complete 3DS authentication for the transaction",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "3d_version",
+        "type": "String",
+        "regex": "(1.0.2|2.1.0|2.2.0)",
+        "description": "3D Secure version of the transaction.",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "cavv",
+        "type": "String",
+        "regex": "",
+        "description": "Cardholder Authentication Verification Value represented as a 20-byte value that is base64 encoded.",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "eci",
+        "type": "String",
+        "regex": "(01|02|05|06|07|08)",
+        "description": "Electronic Commerce Indicator (ECI) from MPI Plugin(3-D Secure 1.0) or 3DS Server(3-D Secure 2.0).",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "xid",
+        "type": "String",
+        "regex": "",
+        "description": "3D Secure XID, Base64 encoded.Required for VISA 1.0",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "ds_trans_id",
+        "type": "String",
+        "regex": "",
+        "description": "The Directory Server (DS) Transaction ID. Required Mastercard 2.0.",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "tavv",
+        "type": "String",
+        "regex": "",
+        "description": "Token Authentication Verification Value represented as a 20-byte value that is base64 encoded.",
+        "is_required": false,
+        "is_updatable": false
+      }
+    ],
+    "payment_options": [
+      {
+        "name": "capture",
+        "type": "boolean",
+        "regex": "",
+        "description": "Determines when the payment is processed for capture.",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "complete_payment_url",
+        "type": "string",
+        "regex": "",
+        "description": "the complete_payment_url field must be filled in.",
+        "is_required": true,
+        "is_updatable": false
+      },
+      {
+        "name": "error_payment_url",
+        "type": "string",
+        "regex": "",
+        "description": "the error_payment_url field must be filled in.",
+        "is_required": true,
+        "is_updatable": false
+      },
+      {
+        "name": "ewallet",
+        "type": "string",
+        "regex": "^ewallet_[a-f0-9]{32}$",
+        "conditions": [
+          {
+            "operator": "$eq",
+            "description": "If the value of the field type is true, ewallet is mandatory field",
+            "element_name": "payment.payment_method_options.aft",
+            "threshold_value": "true"
+          }
+        ],
+        "description": "ID of the wallet that the money is paid into. String starting with ewallet_.",
+        "is_required": false,
+        "is_updatable": false
+      },
+      {
+        "name": "initiation_type",
+        "type": "string",
+        "regex": "(customer_present|installment|moto|recurring|unscheduled)",
+        "description": "This indicates how the transaction was initiated",
+        "is_required": false,
+        "is_updatable": false
+      }
+    ],
+    "minimum_expiration_seconds": 600,
+    "maximum_expiration_seconds": 604800
+  }
+}

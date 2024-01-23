@@ -38,6 +38,7 @@ export class PaymentOption {
   is_required: boolean;
   is_updatable: boolean;
   required_fields?: PaymentOption[];
+  conditions?: Condition[];
 }
 export class Status {
   error_code: string;
@@ -46,7 +47,148 @@ export class Status {
   response_code: string;
   operation_id: string;
 }
-export class PaymentMethodResponse {
-    status: Status;
-    data: PaymentMethod[];
+
+
+export class Field {
+  name: string;
+  type: string;
+  regex: string;
+  is_required: boolean;
+  instructions?: string;
+  description?: string;
+  is_updatable?: boolean;
 }
+
+export interface PaymentMethodOption {
+  name: string;
+  type: string;
+  regex: string;
+  description: string;
+  is_required: boolean;
+  is_updatable: boolean;
+}
+
+
+export class Condition {
+  operator: string;
+  description: string;
+  element_name: string;
+  threshold_value: string;
+}
+export class RequiredFields {
+  type: string;
+  fields: Field[];
+  payment_method_options: PaymentMethodOption[];
+  payment_options: PaymentOption[];
+  minimum_expiration_seconds: number;
+  maximum_expiration_seconds: number;
+}
+export class RequiredFieldsResponse {
+  data: RequiredFields[];
+  status: Status
+
+}
+export class PaymentMethodResponse {
+  status: Status;
+  data: PaymentMethod[];
+}
+
+
+
+export class Metadata {
+  merchant_defined: boolean;
+}
+
+export class Product {
+  id: string;
+  active: boolean;
+  attributes: string[];
+  created_at: number;
+  description: string;
+  images: any[];
+  metadata: Metadata;
+  name: string;
+  package_dimensions: PackageDimensions;
+  shippable: boolean;
+  skus: any[];
+  statement_descriptor: string;
+  type: string;
+  unit_label: string;
+  updated_at: number;
+}
+
+
+export class PackageDimensions {
+  height: number;
+  length: number;
+  weight: number;
+  width: number;
+}
+
+export class ProductResponse {
+    status: Status;
+    data: Product;
+}
+export class ProductListResponse {
+  status: Status;
+  data: Product[];
+}
+export class PlanRequest {
+  currency: string;
+  interval: string;
+  product: string;
+  aggregate_usage: string;
+  billing_scheme: string;
+  nickname: string;
+  tiers: Tier[];
+  tiers_mode: string;
+  transform_usage: TransformUsage;
+  trial_period_days: number;
+  usage_type: string;
+}
+
+export class PlanResponse {
+    status: Status;
+    data: Plan;
+}
+export class PlanListResponse {
+  status: Status;
+  data: Plan[];
+}
+
+export class Plan {
+  id: string;
+  aggregate_usage: string;
+  amount: number;
+  billing_scheme: string;
+  created_at: number;
+  currency: string;
+  interval: string;
+  interval_count: number;
+  metadata: Metadata;
+  product: Product;
+  nickname: string;
+  tiers: Tier[];
+  tiers_mode: string;
+  transform_usage: TransformUsage;
+  trial_period_days: number;
+  usage_type: string;
+  active: boolean;
+}
+
+
+
+
+export class Tier {
+  amount: number;
+  up_to: string;
+  flat_amount: number;
+}
+
+export class TransformUsage {
+  divide_by: number;
+  round: string;
+}
+
+
+
