@@ -9,6 +9,11 @@ import axios, { AxiosResponse } from "axios";
 import * as CryptoJS from "crypto-js";
 import { plainToInstance } from "class-transformer";
 import {
+    CheckoutRequest,
+    CheckoutResponse,
+    CustomerListResponse,
+    CustomerRequest,
+  CustomerResponse,
   PaymentMethodResponse,
   PlanListResponse,
   PlanRequest,
@@ -124,7 +129,7 @@ export class PaymentsService {
       const headers = this.buildHeaders(sig);
 
       const response: AxiosResponse<any> = await axios.get(mUrl, { headers });
-      console.log(`${mm}... 🍎 🍎 🍎 🍎 we cool, dog!!!! 🥦🥦🥦  🍎`);
+      this.weGoodBoss("getCountryPaymentMethods");
       const paymentMethodResponse: PaymentMethodResponse = plainToInstance(
         PaymentMethodResponse,
         response.data
@@ -159,7 +164,7 @@ export class PaymentsService {
       const headers = this.buildHeaders(sig);
 
       const response: AxiosResponse<any> = await axios.get(mUrl, { headers });
-      console.log(`${mm}... 🍎 🍎 🍎 🍎 we cool, dog!!!! 🥦🥦🥦  🍎`);
+      this.weGoodBoss("getProducts");
       const productListResponse: ProductListResponse = plainToInstance(
         ProductListResponse,
         response.data
@@ -193,7 +198,7 @@ export class PaymentsService {
       const headers = this.buildHeaders(sig);
 
       const response: AxiosResponse<any> = await axios.get(mUrl, { headers });
-      console.log(`${mm}... 🍎 🍎 🍎 🍎 we cool, dog!!!! 🥦🥦🥦  🍎`);
+      this.weGoodBoss("getPlans");
       const planListResponse: PlanListResponse = plainToInstance(
         PlanListResponse,
         response.data
@@ -257,7 +262,7 @@ export class PaymentsService {
         options
       );
       //
-      console.log(`\n${mm} 🍎 🍎 🍎 🍎 we cool, dog!!!! 🥦🥦🥦  🍎\n`);
+      this.weGoodBoss("createProduct");
       const productResponse: ProductResponse = plainToInstance(
         ProductResponse,
         response.data
@@ -313,7 +318,7 @@ export class PaymentsService {
         options
       );
       //
-      console.log(`\n${mm} 🍎 🍎 🍎 🍎 we cool, dog!!!! 🥦🥦🥦  🍎\n`);
+      this.weGoodBoss("createPlan");
       const productResponse: PlanResponse = plainToInstance(
         PlanResponse,
         response.data
@@ -344,6 +349,157 @@ export class PaymentsService {
       this.handleError(error);
     }
   }
+  public async createCustomer(customerRequest: CustomerRequest): Promise<any> {
+    console.log(mm + " createCustomer: " + JSON.stringify(customerRequest));
+
+    var sig = this.getRapydSignature(
+      JSON.stringify(customerRequest),
+      "post",
+      "/v1/customers"
+    );
+
+    var mUrl = baseUri + "/customers";
+    console.log(`\n${mm}... 🍎 🍎 🍎 🍎 mUrl: ${mUrl} 🍎\n`);
+
+    try {
+      const headers = this.buildHeaders(sig);
+
+      const options = {
+        headers: headers,
+      };
+      var body = JSON.parse(JSON.stringify(customerRequest));
+      const response: AxiosResponse<any> = await axios.post(
+        mUrl,
+        body,
+        options
+      );
+      //
+      this.weGoodBoss("createCustomer");
+      const customerResponse: CustomerResponse = plainToInstance(
+        CustomerResponse,
+        response.data
+      );
+
+      if (customerResponse.status.status === "SUCCESS") {
+        console.log(
+          `🍎 🍎 🍎 🍎 we cool, status: ${JSON.stringify(
+            customerResponse.status,
+            null,
+            2
+          )} \n\n`
+        );
+
+        console.log(
+          `${mm} 🍎 🍎 🍎 🍎 we cool, plan created: ${customerResponse.status.status}\n\n`
+        );
+        return customerResponse;
+      }
+      console.log(
+        `${mm} 👿👿👿👿 customerResponse.status.status: ${customerResponse.status.status} 👿👿`
+      );
+      throw new HttpException(
+        JSON.stringify(customerResponse),
+        HttpStatus.BAD_REQUEST
+      );
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  public async createCheckout(checkoutRequest: CheckoutRequest): Promise<any> {
+    console.log(mm + " createCheckout: " + JSON.stringify(checkoutRequest));
+
+    var sig = this.getRapydSignature(
+      JSON.stringify(checkoutRequest),
+      "post",
+      "/v1/checkout"
+    );
+
+    var mUrl = baseUri + "/checkout";
+    console.log(`\n${mm}... 🍎 🍎 🍎 🍎 mUrl: ${mUrl} 🍎\n`);
+
+    try {
+      const headers = this.buildHeaders(sig);
+      const options = {
+        headers: headers,
+      };
+      var body = JSON.parse(JSON.stringify(checkoutRequest));
+      const response: AxiosResponse<any> = await axios.post(
+        mUrl,
+        body,
+        options
+      );
+      //
+      this.weGoodBoss("createCheckout");
+      const checkoutResponse: CheckoutResponse = plainToInstance(
+        CheckoutResponse,
+        response.data
+      );
+
+      if (checkoutResponse.status.status === "SUCCESS") {
+        console.log(
+          `🍎 🍎 🍎 🍎 we cool, status: ${JSON.stringify(
+            checkoutResponse,
+            null,
+            2
+          )} \n\n`
+        );
+
+        console.log(
+          `${mm} 🍎 🍎 🍎 🍎 we cool, checkout created: ${checkoutResponse.status.status}\n\n`
+        );
+        return checkoutResponse;
+      }
+      console.log(
+        `${mm} 👿👿👿👿 customerResponse.status.status: ${checkoutResponse.status.status} 👿👿`
+      );
+      throw new HttpException(
+        JSON.stringify(checkoutResponse),
+        HttpStatus.BAD_REQUEST
+      );
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+    private weGoodBoss(name: string) {
+        console.log(`\n${mm} 🍎 🍎 ${name} 🍎 🍎 we cool, dog!!! 🥦🥦🥦  🍎\n`);
+    }
+
+  public async getCustomers(): Promise<CustomerListResponse> {
+    console.log(mm + " getCustomers ................: ");
+
+    var sig = this.getRapydSignature(null, "get", "/v1/customers");
+
+    var mUrl = baseUri + "/customers";
+    console.log(`${mm} ... 🍎 🍎 🍎 🍎 mUrl: ${mUrl} 🍎`);
+
+    try {
+      const headers = this.buildHeaders(sig);
+
+      const response: AxiosResponse<any> = await axios.get(mUrl, { headers });
+      this.weGoodBoss("getCustomers");
+      const customerListResponse: CustomerListResponse = plainToInstance(
+        CustomerListResponse,
+        response.data
+      );
+
+      console.log(
+        `${mm} ... 🍎 🍎 🍎 🍎 we cool, status: ${JSON.stringify(
+          customerListResponse.status,
+          null,
+          2
+        )} \n\n`
+      );
+
+      console.log(
+        `🍎 🍎 🍎 🍎 we cool, customers found: ${customerListResponse.data.length}\n`
+      );
+      return customerListResponse;
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
   public async getPaymentMethodRequiredFields(
     cardType: string
   ): Promise<RequiredFieldsResponse> {
@@ -363,7 +519,7 @@ export class PaymentsService {
 
       const response: AxiosResponse<any> = await axios.get(mUrl, { headers });
       if (response.status == 200) {
-        console.log(`${mm} 🍎 🍎 🍎 🍎 we cool, dog!!!! 🥦🥦🥦  🍎`);
+        this.weGoodBoss("getPaymentRequiredFields");
         const requiredFieldsResponse: RequiredFieldsResponse = plainToInstance(
           RequiredFieldsResponse,
           response.data
