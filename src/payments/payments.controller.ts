@@ -1,10 +1,15 @@
-import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
-import { PaymentsService } from './payments.service';
+import { Body, Controller, Get, HttpStatus, Post, Query } from "@nestjs/common";
+import { PaymentsService } from "./payments.service";
 import {
   CustomerRequest,
   CheckoutRequest,
   PlanRequest,
   Product,
+  PaymentByBankTransferRequest,
+  PaymentByCardRequest,
+  PaymentByWalletRequest,
+  PaymentLinkRequest,
+  AddCustomerPaymentMethodRequest,
 } from "src/rapyd/rapyd_models";
 
 @Controller("rapyd")
@@ -74,20 +79,71 @@ export class PaymentsController {
     var result = await this.paymentsService.createCheckout(checkoutRequest);
     return result;
   }
+  @Post("createPaymentLink")
+  async createPaymentLink(
+    @Body() paymentLink: PaymentLinkRequest
+  ): Promise<any> {
+    var result = await this.paymentsService.createPaymentLink(paymentLink);
+    return result;
+  }
+  @Post("createPaymentByBankTransfer")
+  async createPaymentByBankTransfer(
+    @Body() paymentRequest: PaymentByBankTransferRequest
+  ): Promise<any> {
+    var result =
+      await this.paymentsService.createPaymentByBankTransfer(paymentRequest); //
+    return result;
+  }
+  @Post("createPaymentByCard")
+  async createPaymentByCard(
+    @Body() paymentRequest: PaymentByCardRequest
+  ): Promise<any> {
+    var result = await this.paymentsService.createPaymentByCard(paymentRequest); //
+    return result;
+  }
+  @Post("createPaymentByWallet")
+  async createPaymentByWallet(
+    @Body() paymentRequest: PaymentByWalletRequest
+  ): Promise<any> {
+    var result =
+      await this.paymentsService.createPaymentByWallet(paymentRequest); //
+    return result;
+  }
+
+  @Post("addCustomerPaymentMethod")
+  async addCustomerPaymentMethod(customer: string, type:string): Promise<any> {
+    var result =
+      await this.paymentsService.addCustomerPaymentMethod(customer, type); //
+    return result;
+  }
+
   @Get("getCustomers")
   async getCustomers(): Promise<any> {
     var result = await this.paymentsService.getCustomers();
+    return result;
+  }
+  @Get("getCustomerPayments")
+  async getCustomerPayments(customer: string, limit: number): Promise<any> {
+    var result = await this.paymentsService.getCustomerPayments(
+      limit,
+      customer
+    );
+    return result;
+  }
+  @Get("getPayments")
+  async getPayments(limit: number): Promise<any> {
+    var result = await this.paymentsService.getPayments(limit);
     return result;
   }
   //WEB_HOOKS
   @Get("webhook")
   async webhook(@Body() payload: any): Promise<any> {
     console.log(
-      ` 🍎 🍎 🍎 webhook from RAPYD: payload: ${JSON.stringify(
+      ` 🍎 🍎 🍎 webhook arrived from RAPYD, check the type! payload: ${JSON.stringify(
         payload,
         null,
         2
-      )}`
+      )}  🍎 🍎 🍎 `
     );
     return HttpStatus.OK;
   }
@@ -98,18 +154,18 @@ export class PaymentsController {
         payload,
         null,
         2
-      )}`
+      )}  🍎 🍎 🍎 `
     );
     return HttpStatus.OK;
   }
   @Get("paymentError")
   async paymentError(@Body() payload: any): Promise<any> {
     console.log(
-      ` 🍎 🍎 🍎 paymentError from RAPYD: payload: ${JSON.stringify(
+      ` 👿👿👿👿👿👿👿 paymentError from RAPYD: payload: ${JSON.stringify(
         payload,
         null,
         2
-      )}`
+      )} 👿👿👿👿👿👿`
     );
     return HttpStatus.OK;
   }

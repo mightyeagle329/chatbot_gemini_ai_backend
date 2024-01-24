@@ -243,6 +243,8 @@ export class PaymentMethodStub {
   next_action: string;
   bic_swift: string;
   account_last4: string;
+  language: string;
+  redirect_url: string;
 }
 
 export class CheckoutRequest {
@@ -304,68 +306,6 @@ export class Checkout {
   escrow_release_days: any;
 }
 
-export class MerchantCustomerSupport {}
-
-export class Payment {
-  id: any;
-  amount: number;
-  original_amount: number;
-  is_partial: boolean;
-  currency_code: string;
-  country_code: string;
-  status: any;
-  description: string;
-  merchant_reference_id: string;
-  customer_token: string;
-  payment_method: any;
-  payment_method_data: PaymentMethodData;
-  expiration: number;
-  captured: boolean;
-  refunded: boolean;
-  refunded_amount: number;
-  receipt_email: any;
-  redirect_url: any;
-  complete_payment_url: string;
-  error_payment_url: string;
-  receipt_number: any;
-  flow_type: any;
-  address: any;
-  statement_descriptor: any;
-  transaction_id: any;
-  created_at: number;
-  updated_at: number;
-  metadata: Metadata;
-  failure_code: any;
-  failure_message: any;
-  paid: boolean;
-  paid_at: number;
-  dispute: any;
-  refunds: any;
-  order: any;
-  outcome: any;
-  visual_codes: VisualCodes;
-  textual_codes: TextualCodes;
-  instructions: Instructions;
-  ewallet_id: any;
-  ewallets: any[];
-  payment_method_options: PaymentMethodOptions;
-  payment_method_type: any;
-  payment_method_type_category: any;
-  fx_rate: any;
-  merchant_requested_currency: any;
-  merchant_requested_amount: any;
-  fixed_side: any;
-  payment_fees: any;
-  invoice: any;
-  escrow: any;
-  group_payment: any;
-  cancel_reason: any;
-  initiation_type: string;
-  mid: any;
-  next_action: string;
-}
-
-export class PaymentMethodData {}
 
 export class VisualCodes {}
 
@@ -382,4 +322,203 @@ export class CustomElements {
   merchant_currency_only: boolean;
   billing_address_collect: boolean;
   dynamic_currency_conversion: boolean;
+}
+
+export class PaymentByBankTransferRequest {
+  amount: number;
+  currency: string;
+  customer: string;
+  payment_method: PaymentMethod;
+}
+
+export class PaymentResponse {
+    status: Status;
+    data: Payment;
+}
+export class PaymentListResponse {
+  status: Status;
+  data: Payment[];
+}
+
+export class PaymentByCardRequest {
+  amount: number;
+  currency: string;
+  customer: string;
+  payment_method: PaymentMethod;
+  capture: boolean;
+  "3DS_required": boolean;
+}
+export class PaymentByWalletRequest {
+  amount: number;
+  currency: string;
+  customer: string;
+  payment_method: PaymentMethod;
+  
+}
+
+export class Fields {
+  number: string;
+  expiration_month: string;
+  expiration_year: string;
+  name: string;
+  cvv: string;
+}
+
+
+export class Payment {
+  id: string;
+  amount: number;
+  original_amount: number;
+  is_partial: boolean;
+  currency_code: string;
+  country_code: string;
+  status: string;
+  description: string;
+  merchant_reference_id: string;
+  customer_token: string;
+  payment_method: string;
+  payment_method_data: PaymentMethodData;
+  auth_code: any;
+  expiration: number;
+  captured: boolean;
+  refunded: boolean;
+  refunded_amount: number;
+  receipt_email: string;
+  redirect_url: string;
+  complete_payment_url: string;
+  error_payment_url: string;
+  receipt_number: string;
+  flow_type: string;
+  address: any;
+  statement_descriptor: string;
+  transaction_id: string;
+  created_at: number;
+  metadata: Metadata;
+  failure_code: string;
+  failure_message: string;
+  paid: boolean;
+  paid_at: number;
+  dispute: any;
+  refunds: any;
+  order: any;
+  outcome: any;
+  visual_codes: VisualCodes;
+  textual_codes: TextualCodes;
+  instructions: Instruction[];
+  ewallet_id: string;
+  ewallets: Ewallet[];
+  payment_method_options: PaymentMethodOptions;
+  payment_method_type: string;
+  payment_method_type_category: string;
+  fx_rate: number;
+  merchant_requested_currency: any;
+  merchant_requested_amount: any;
+  fixed_side: string;
+  payment_fees: any;
+  invoice: string;
+  escrow: any;
+  group_payment: string;
+  cancel_reason: any;
+  initiation_type: string;
+  mid: string;
+  next_action: string;
+  error_code: string;
+  remitter_information: RemitterInformation;
+  save_payment_method: boolean;
+}
+
+export class PaymentMethodData {
+  id: string;
+  type: string;
+  category: string;
+  metadata: Metadata;
+  image: string;
+  webhook_url: string;
+  supporting_documentation: string;
+  next_action: string;
+  bic_swift: string;
+  account_last4: string;
+}
+
+export class Instruction {
+  name: string;
+  steps: Step[];
+}
+
+export class Step {
+  step1: string;
+}
+
+export class Ewallet {
+  ewallet_id: string;
+  amount: number;
+  percent: number;
+  refunded_amount: number;
+}
+
+
+export class RemitterInformation {}
+
+export class PaymentLinkResponse {
+    status: Status;
+    data: PaymentLink;
+}
+
+export class LinkCheckout {
+    error_payment_url: string;
+    complete_payment_url: string;
+}
+export class PaymentLinkRequest {
+    country: string;
+    currency: string;
+    amount: number;
+    merchantReferenceId: string;
+    language: string;
+    checkout: LinkCheckout;
+}
+
+export class PaymentLink {
+  id: string;
+  amount: number;
+  currency: string;
+  country: string;
+  amount_is_editable: boolean;
+  merchant_reference_id: string;
+  redirect_url: string;
+  template: Template;
+  customer: string;
+  status: string;
+  language: string;
+  merchant_color: string;
+  merchant_logo: string;
+  merchant_website: string;
+  merchant_customer_support: MerchantCustomerSupport;
+  merchant_alias: string;
+  merchant_terms: string;
+  merchant_privacy_policy: string;
+  page_expiration: number;
+}
+
+export class Template {
+  error_payment_url: string;
+  complete_payment_url: string;
+}
+
+export class MerchantCustomerSupport {
+  url: string;
+  email: string;
+  phone_number: string;
+}
+
+
+export class AddCustomerPaymentMethodRequest {
+  type: string;
+  complete_payment_url: string;
+  error_payment_url: string;
+  fields: Field[];
+  metadata: Metadata;
+}
+export class AddCustomerPaymentMethodResponse {
+  status: Status;
+  data: PaymentMethodStub
 }
