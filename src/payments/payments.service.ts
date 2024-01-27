@@ -35,7 +35,9 @@ import {
   Fields,
   Field,
   AddCustomerPaymentMethodResponse,
+  CustomerPaymentMethodResponse,
 } from "src/rapyd/rapyd_models";
+import { FirestoreService } from "src/models/models.service";
 
 var accessKey: string = "rak_AE0D13504D1AC1D5DF7E";
 const secretKey: string =
@@ -55,6 +57,7 @@ const paymentError =
 // const crypto = require('crypto');
 @Injectable()
 export class PaymentsService {
+  constructor(private firestoreService: FirestoreService) {}
   // The access key from Client Portal.
 
   //   generateRandomString(size: number) {
@@ -168,6 +171,56 @@ export class PaymentsService {
     } catch (error) {
       this.handleError(error);
     }
+  }
+
+  public async handleRapydWebhook(payload: any): Promise<any> {
+    //check payload type ...
+    console.log(`💚 💚 handleRapydWebhook .....`);
+    const json = JSON.parse(payload);
+    const type: string = json["type"];
+    const data: any = json["data"];
+
+    if (type.includes("PAYMENT_SUCCEEDED")) {
+      const paid: boolean = data["paid"];
+      if (paid) {
+        console.log(
+          `💚 💚 handle webhook : PAYMENT_SUCCEEDED .....paid ok?: ${paid}`
+        );
+        await this.writeSuccessfulPayment(json);
+      } else {
+        console.log(
+          `💚 💚 handle webhook : PAYMENT_SUCCEEDED ..... paid failed?: ${paid}`
+        );
+        await this.writeFailedPayment(json);
+      }
+    }
+    if (type.includes("PAYMENT_COMPLETED")) {
+      const paid: boolean = data["paid"];
+      console.log(
+        `💚 💚 handle webhook : PAYMENT_COMPLETED ..... paid?: ${paid}`
+      );
+      await this.writeCompletedPayment(json);
+    }
+    if (type.includes("PAYMENT_FAILED")) {
+      const paid: boolean = data["paid"];
+      console.log(
+        `💚 💚 handle webhook : PAYMENT_COMPLETED ..... paid?: ${paid}`
+      );
+      await this.writeFailedPayment(json);
+    }
+  }
+
+  private async writeSuccessfulPayment(payment: any) {
+    console.log(` 🍎 🍎 🍎 writeSuccessfulPayment`);
+    return this.firestoreService.addPaymentSucceeded(JSON.parse(payment));
+  }
+  private async writeFailedPayment(payment: any) {
+    console.log(` 🍎 🍎 🍎 writeFailedPayment`);
+    return this.firestoreService.addPaymentFailed(JSON.parse(payment));
+  }
+  private async writeCompletedPayment(payment: any) {
+    console.log(` 🍎 🍎 🍎 writeCompletedPayment`);
+    return this.firestoreService.addPaymentCompleted(JSON.parse(payment));
   }
 
   public async getProducts(): Promise<ProductListResponse> {
@@ -374,7 +427,7 @@ export class PaymentsService {
   public async addCustomerPaymentMethod(
     customer: string,
     type: string
-  ): Promise<any> {
+  ): Promise<CustomerPaymentMethodResponse> {
     var rf: RequiredFieldsResponse =
       await this.getPaymentMethodRequiredFields(type);
     console.log(
@@ -433,8 +486,10 @@ export class PaymentsService {
         );
         //
         this.weGoodBoss("addCustomerPaymentMethod");
-        const customerResponse: AddCustomerPaymentMethodResponse =
-          plainToInstance(AddCustomerPaymentMethodResponse, response.data);
+        const customerResponse: CustomerPaymentMethodResponse = plainToInstance(
+          CustomerPaymentMethodResponse,
+          response.data
+        );
 
         if (customerResponse.status.status === "SUCCESS") {
           console.log(

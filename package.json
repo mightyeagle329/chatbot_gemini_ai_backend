@@ -32,14 +32,17 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "crypto-js": "^4.2.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.1",
     "firebase-admin": "^12.0.0",
     "gmail-api-parse-message": "^2.1.2",
     "https": "^1.0.0",
     "nodemailer": "^6.9.7",
     "openai": "^4.24.3",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "request": "^2.88.2",
+    "rxjs": "^7.8.1",
+    "square": "^34.0.1",
+    "stripe": "^14.14.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

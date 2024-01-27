@@ -16,9 +16,10 @@ import { ModelsModule } from './models/models.module';
 import { FirestoreController } from './models/models.controller';
 import { FirestoreService } from './models/models.service';
 import { PaymentsModule } from './payments/payments.module';
+import { PaypalModule } from './paypal/paypal.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), TextModule, TextImageModule, ChatsModule, ModelsModule, PaymentsModule,],
+  imports: [ConfigModule.forRoot(), TextModule, TextImageModule, ChatsModule, ModelsModule, PaymentsModule, PaypalModule,],
   controllers: [
     AppController,
     TextController,

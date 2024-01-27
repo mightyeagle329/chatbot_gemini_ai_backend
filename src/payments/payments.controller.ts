@@ -19,10 +19,12 @@ export class PaymentsController {
   //PING
   @Get("ping")
   async ping(): Promise<any> {
-    return (
-      "🔵 Yebo! 🍎 🍎 from Rapyd controller at SgelaAI at " +
-      new Date().toISOString()
-    );
+    var msg =
+      `🔵 🔵 🔵 🔵 Yebo! 🍎 🍎 from Rapyd controller at SgelaAI at ` +
+      new Date().toISOString() +
+      " 🔵 ";
+    console.log(msg);
+    return msg;
   }
   //PAYMENT METHODS
   @Get("getCountryPaymentMethods")
@@ -36,10 +38,10 @@ export class PaymentsController {
 
   @Get("getPaymentMethodRequiredFields")
   async getPaymentMethodRequiredFields(
-    @Query("cardType") cardType: string
+    @Query("type") type: string
   ): Promise<any> {
     var result =
-      await this.paymentsService.getPaymentMethodRequiredFields(cardType);
+      await this.paymentsService.getPaymentMethodRequiredFields(type);
     return result;
   }
   //PRODUCTS
@@ -68,9 +70,7 @@ export class PaymentsController {
   }
   //CUSTOMERS
   @Post("createCustomer")
-  async createCustomers(
-    @Body() customerRequest: CustomerRequest
-  ): Promise<any> {
+  async createCustomer(@Body() customerRequest: CustomerRequest): Promise<any> {
     var result = await this.paymentsService.createCustomer(customerRequest);
     return result;
   }
@@ -110,10 +110,12 @@ export class PaymentsController {
     return result;
   }
 
-  @Post("addCustomerPaymentMethod")
-  async addCustomerPaymentMethod(customer: string, type:string): Promise<any> {
-    var result =
-      await this.paymentsService.addCustomerPaymentMethod(customer, type); //
+  @Get("addCustomerPaymentMethod")
+  async addCustomerPaymentMethod(customer: string, type: string): Promise<any> {
+    var result = await this.paymentsService.addCustomerPaymentMethod(
+      customer,
+      type
+    ); //
     return result;
   }
 
@@ -136,8 +138,8 @@ export class PaymentsController {
     return result;
   }
   //WEB_HOOKS
-  @Get("webhook")
-  async webhook(@Body() payload: any): Promise<any> {
+  @Post("webhook")
+  async rapydWebhook(@Body() payload: any): Promise<any> {
     console.log(
       ` 🍎 🍎 🍎 webhook arrived from RAPYD, check the type! payload: ${JSON.stringify(
         payload,
@@ -145,9 +147,10 @@ export class PaymentsController {
         2
       )}  🍎 🍎 🍎 `
     );
+    this.paymentsService.handleRapydWebhook(payload);
     return HttpStatus.OK;
   }
-  @Get("paymentComplete")
+  @Post("paymentComplete")
   async paymentComplete(@Body() payload: any): Promise<any> {
     console.log(
       ` 🍎 🍎 🍎 paymentComplete from RAPYD: payload: ${JSON.stringify(
@@ -158,7 +161,7 @@ export class PaymentsController {
     );
     return HttpStatus.OK;
   }
-  @Get("paymentError")
+  @Post("paymentError")
   async paymentError(@Body() payload: any): Promise<any> {
     console.log(
       ` 👿👿👿👿👿👿👿 paymentError from RAPYD: payload: ${JSON.stringify(
@@ -169,7 +172,7 @@ export class PaymentsController {
     );
     return HttpStatus.OK;
   }
-  @Get("completeCheckout")
+  @Post("completeCheckout")
   async completeCheckout(@Body() payload: any): Promise<any> {
     console.log(
       ` 🍎 🍎 🍎 completeCheckout from RAPYD: payload: ${JSON.stringify(
@@ -180,7 +183,7 @@ export class PaymentsController {
     );
     return HttpStatus.OK;
   }
-  @Get("cancelCheckout")
+  @Post("cancelCheckout")
   async cancelCheckout(@Body() payload: any): Promise<any> {
     console.log(
       ` 🍎 🍎 🍎 cancelCheckout from RAPYD: payload: ${JSON.stringify(

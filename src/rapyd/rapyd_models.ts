@@ -45,7 +45,7 @@ export class PaymentOption {
   description: string;
   is_required: boolean;
   is_updatable: boolean;
-  required_fields?: PaymentOption[];
+  required_fields?: Field[];
   conditions?: Condition[];
 }
 export class Status {
@@ -522,3 +522,53 @@ export class AddCustomerPaymentMethodResponse {
   status: Status;
   data: PaymentMethodStub
 }
+
+export class  AddCustomerCardPaymentMethod {
+  type: string;
+  complete_payment_url: string;
+  error_payment_url: string;
+  fields: Fields;
+  metadata: Metadata;
+}
+export class AddCustomerBankPaymentMethod {
+  type: string;
+  complete_payment_url: string;
+  error_payment_url: string;
+  fields: {};
+  metadata: Metadata;
+}
+
+export class CustomerPaymentMethodResponse {
+  status: Status;
+  data: CustomerPaymentMethod;
+}
+export class CustomerPaymentMethod {
+  id: string;
+  type: string;
+  category: string;
+  metadata: Metadata;
+  image: string;
+  webhook_url: string;
+  supporting_documentation: string;
+  next_action: string;
+  name: string;
+  last4: string;
+  acs_check: string;
+  cvv_check: string;
+  bin_details: BinDetails;
+  expiration_year: string;
+  expiration_month: string;
+  fingerprint_token: string;
+  redirect_url: string;
+  complete_payment_url: string;
+  error_payment_url: string;
+}
+export class BinDetails {
+  type: string;
+  brand: string;
+  level?: any;
+  issuer: string;
+  country: string;
+  bin_number: string;
+}
+

@@ -35,4 +35,28 @@ export class FirestoreService {
     console.log(`${mm} .... addTransaction: Gemini AI: 🍎 🍎 ${res}`);
     return documentRef.id;
   }
+  async addPaymentSucceeded(payload: any): Promise<string> {
+    const documentRef = this.firestore
+      .collection("RapidPaymentSucceeded")
+      .doc();
+    const res = await documentRef.set(payload);
+    console.log(`${mm} .... addPaymentSucceeded: res: 🍎 🍎 ${res}`);
+    return documentRef.id;
+  }
+  async addPaymentCompleted(payload: any): Promise<string> {
+    const documentRef = this.firestore
+      .collection("RapidPaymentCompleted")
+      .doc();
+    const res = await documentRef.set(payload);
+    console.log(`${mm} .... addPaymentCompleted: res: 🍎 🍎 ${res}`);
+    return documentRef.id;
+  }
+  async addPaymentFailed(payload: any): Promise<string> {
+    const documentRef = this.firestore
+      .collection("RapidPaymentFailed")
+      .doc();
+    const res = await documentRef.set(payload);
+    console.log(`${mm} .... addPaymentFailed: res: 🍎 🍎 ${res}`);
+    return documentRef.id;
+  }
 }
