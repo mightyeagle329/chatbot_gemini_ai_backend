@@ -33,12 +33,10 @@ export class TextImageController {
     @UploadedFile() file: Express.Multer.File,
     @Body("prompt") prompt: string,
     @Body("examLinkId") examLinkId: number,
-    @Body("mimeType") mimeType: string,
-    @Body("linkResponse") linkResponse: string
+    @Body("mimeType") mimeType: string
   ): Promise<any> {
     console.log(`${mm} image file coming in: ${file.buffer.length}`);
     console.log(`${mm} examLinkId coming in: ${examLinkId}`);
-    console.log(`${mm} linkResponse coming in: ${linkResponse}`);
 
     try {
         const uploadDir = path.join(process.cwd(), "uploads");
@@ -59,7 +57,6 @@ export class TextImageController {
               filePath,
               mimeType,
               prompt,
-              linkResponse,
               examLinkId
             );
             return result;

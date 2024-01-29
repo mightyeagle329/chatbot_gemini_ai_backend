@@ -15,7 +15,6 @@ export class TextImageService {
     path: string,
     mimeType: string,
     prompt: string,
-    linkResponse: string,
     examLinkId: number
   ): Promise<any> {
     //
@@ -31,15 +30,9 @@ export class TextImageService {
     try {
       const imageParts = [this.fileToGenerativePart(path, mimeType)];
 
-      let mPrompt: string;
-      if (linkResponse === "true") {
-        mPrompt = prompt + this.getPromptSuffixList();
-      } else {
-        mPrompt = prompt + this.getPromptSuffixText();
-      }
       console.log(`${mm} ... Gemini AI imageParts: 🍎 ${imageParts.length} 🍎`);
 
-      const result = await model.generateContent([mPrompt, ...imageParts]);
+      const result = await model.generateContent([...imageParts, prompt]);
       const { totalTokens } = await model.countTokens(prompt);
       const tokensResponse = await model.countTokens(imageParts);
 
@@ -92,12 +85,6 @@ export class TextImageService {
     };
   }
 
-  getPromptSuffixList(): string {
-    return "\nAlso, tell me what is in the picture. Return response as a list of json objects with title, description, link";
-  }
-  getPromptSuffixText(): string {
-    return "\nAlso, tell me what is in the picture. Return response as a list of titled paragraphs";
-  }
 }
 
 
