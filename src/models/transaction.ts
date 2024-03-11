@@ -4,7 +4,8 @@ export class AITransaction {
   tokens: number;
   examlinkId: number;
   prompt: string;
-  userId: string;
+  userId: number;
+  organizationId: number;
 
   constructor(
     id: string,
@@ -12,7 +13,8 @@ export class AITransaction {
     tokens: number,
     examlinkId: number,
     prompt: string,
-    userId: string
+    userId: number,
+    organizationId: number
   ) {
     this.id = id;
     this.date = date;
@@ -20,6 +22,7 @@ export class AITransaction {
     this.examlinkId = examlinkId;
     this.prompt = prompt;
     this.userId = userId;
+    this.organizationId = organizationId;
   }
   toJson(): Record<string, any> {
     return {
@@ -29,6 +32,7 @@ export class AITransaction {
       examlinkId: this.examlinkId,
       prompt: this.prompt,
       userId: this.userId,
+      organizationId: this.organizationId,
     };
   }
 }

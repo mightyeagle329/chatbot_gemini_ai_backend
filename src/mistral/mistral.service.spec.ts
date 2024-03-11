@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GeminiTextImageService } from './text_image.service';
+import { MistralService } from './mistral.service';
 
-describe('TextImageService', () => {
-  let service: GeminiTextImageService;
+describe('MistralService', () => {
+  let service: MistralService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GeminiTextImageService],
+      providers: [MistralService],
     }).compile();
 
-    service = module.get<GeminiTextImageService>(GeminiTextImageService);
+    service = module.get<MistralService>(MistralService);
   });
 
   it('should be defined', () => {

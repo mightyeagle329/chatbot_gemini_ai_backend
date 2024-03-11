@@ -1,0 +1,105 @@
+<p>**Question 5** **5.1** The turning point of f is <span
+class="math inline">(−2,−5)</span>.</p>
+<p>**5.2** To find the x-coordinates of A and B, we need to solve the
+system of equations: <span
+class="math display"><em>f</em>(<em>x</em>) = <em>g</em>(<em>x</em>)</span>
+<span
+class="math display"> − (<em>x</em>3)<sup>2</sup>4 = <em>x</em>5</span>
+Expanding and simplifying, we get: <span
+class="math display"> − <em>x</em><sup>2</sup> − 6<em>x</em> − 5 = <em>x</em>5</span>
+<span
+class="math display"> − <em>x</em><sup>2</sup> − 7<em>x</em> − 10 = 0</span>
+Using the quadratic formula, we find that: <span
+class="math display">$$x = \frac{-(-7) \pm \sqrt{(-7)^2 -
+4(-1)(-10)}}{2(-1)}$$</span> <span class="math display">$$x = \frac{7
+\pm \sqrt{49   40}}{-2}$$</span> <span class="math display">$$x =
+\frac{7 \pm \sqrt{89}}{-2}$$</span> Therefore, the x-coordinates of A
+and B are: <span class="math display">$$x = \frac{7   \sqrt{89}}{-2}
+\approx -2$$</span> and <span class="math display">$$x = \frac{7 -
+\sqrt{89}}{-2} \approx -5$$</span></p>
+<p>**5.3** Hence, the x-coordinates of A and B are <span
+class="math inline"> − 5</span> and <span
+class="math inline"> − 2</span>, respectively.</p>
+<p>**5.4** To determine the values of <span
+class="math inline"><em>c</em></span> for which the equation <span
+class="math inline">(<em>x</em>−<em>c</em>3)<sup>2</sup>4 = <em>x</em><em>c</em>5</span>
+has one negative and one positive root, we need to find the discriminant
+of the quadratic equation: <span
+class="math display"><em>b</em><sup>2</sup> − 4<em>a</em><em>c</em></span>
+Substituting <span class="math inline"><em>a</em> = 1</span>, <span
+class="math inline"><em>b</em> =  − <em>c</em>7</span>, and <span
+class="math inline"><em>c</em> = <em>c</em>5</span>, we get: <span
+class="math display">(−<em>c</em>7)<sup>2</sup> − 4(1)(<em>c</em>5)</span>
+<span
+class="math display"><em>c</em><sup>2</sup> − 14<em>c</em>49 − 4<em>c</em> − 20</span>
+<span
+class="math display"><em>c</em><sup>2</sup> − 18<em>c</em>29</span> For
+the equation to have one negative and one positive root, the
+discriminant must be positive: <span
+class="math display"><em>c</em><sup>2</sup> − 18<em>c</em>29 &gt; 0</span>
+We can solve this inequality using the quadratic formula: <span
+class="math display">$$c = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</span>
+Substituting <span class="math inline"><em>a</em> = 1</span>, <span
+class="math inline"><em>b</em> =  − 18</span>, and <span
+class="math inline"><em>c</em> = 29</span>, we get: <span
+class="math display">$$c = \frac{-(-18) \pm \sqrt{(-18)^2 -
+4(1)(29)}}{2(1)}$$</span> <span class="math display">$$c = \frac{18 \pm
+\sqrt{324 - 116}}{2}$$</span> <span class="math display">$$c = \frac{18
+\pm \sqrt{208}}{2}$$</span> <span class="math display">$$c = \frac{18
+\pm 2\sqrt{52}}{2}$$</span> <span class="math display">$$c = 9 \pm
+\sqrt{52}$$</span> Therefore, the values of <span
+class="math inline"><em>c</em></span> for which the equation <span
+class="math inline">(<em>x</em>−<em>c</em>3)<sup>2</sup>4 = <em>x</em><em>c</em>5</span>
+has one negative and one positive root are <span class="math inline">$c
+= 9   \sqrt{52}$</span> and <span class="math inline">$c = 9 -
+\sqrt{52}$</span>.</p>
+<p>**5.5** To find the maximum distance between <span
+class="math inline"><em>f</em></span> and <span
+class="math inline"><em>g</em></span> in the interval <span
+class="math inline"><em>x</em><sub>1</sub> ≤ <em>x</em> ≤ <em>x</em><sub>2</sub></span>,
+we need to find the maximum value of the function <span
+class="math inline">|<em>f</em>(<em>x</em>)−<em>g</em>(<em>x</em>)|</span>
+in that interval. <span
+class="math display">|<em>f</em>(<em>x</em>)−<em>g</em>(<em>x</em>)| = |−(<em>x</em>3)<sup>2</sup>4−(<em>x</em>5)|</span>
+<span
+class="math display"> = |<em>x</em><sup>2</sup>6<em>x</em>94−<em>x</em>−5|</span>
+<span
+class="math display"> = |<em>x</em><sup>2</sup>5<em>x</em>8|</span>
+Since the function <span
+class="math inline">|<em>x</em><sup>2</sup>5<em>x</em>8|</span> is a
+parabola that opens upwards, its minimum value occurs at its vertex. The
+vertex of the parabola is at <span class="math inline">$x =
+-\frac{b}{2a} = -\frac{5}{2(1)} = -\frac{5}{2}$</span>. The minimum
+value of the function is therefore: <span
+class="math display">$$|f(-\frac{5}{2}) - g(-\frac{5}{2})| =
+|(-\frac{5}{2})^2   5(-\frac{5}{2})   8 - (-\frac{5}{2}   5)|$$</span>
+<span class="math display">$$= |\frac{25}{4} - \frac{25}{2}   8 -
+\frac{3}{2}|$$</span> <span class="math display">$$= |\frac{25}{4} -
+\frac{50}{4}   \frac{32}{4} - \frac{6}{4}|$$</span> <span
+class="math display">$$= |\frac{5}{4}|$$</span> <span
+class="math display">$$= \frac{5}{4}$$</span> Therefore, the maximum
+distance between <span class="math inline"><em>f</em></span> and <span
+class="math inline"><em>g</em></span> in the interval <span
+class="math inline"><em>x</em><sub>1</sub> ≤ <em>x</em> ≤ <em>x</em><sub>2</sub></span>
+is <span class="math inline">$\frac{5}{4}$</span>.</p>
+<p>**5.6** If <span
+class="math inline"><em>h</em>(<em>x</em>) = <em>f</em>(<em>x</em>)<em>k</em></span>,
+then the graph of <span
+class="math inline"><em>h</em>(<em>x</em>)</span> is the graph of <span
+class="math inline"><em>f</em>(<em>x</em>)</span> shifted up by <span
+class="math inline"><em>k</em></span> units. Therefore, the graph of
+<span class="math inline"><em>h</em>(<em>x</em>)</span> will pass
+through the point <span class="math inline">(−2,−5<em>k</em>)</span>.
+Since the graph of <span
+class="math inline"><em>h</em>(<em>x</em>)</span> also passes through
+the point <span class="math inline">(0,0)</span>, we have: <span
+class="math display"><em>h</em>(0) = 0</span> <span
+class="math display"><em>f</em>(0)<em>k</em> = 0</span> <span
+class="math display"> − 5<em>k</em> = 0</span> <span
+class="math display"><em>k</em> = 5</span> Therefore, the equation of
+<span class="math inline"><em>h</em>(<em>x</em>)</span> is: <span
+class="math display"><em>h</em>(<em>x</em>) = <em>f</em>(<em>x</em>)5 =  − (<em>x</em>3)<sup>2</sup>45</span>
+<span
+class="math display"><em>h</em>(<em>x</em>) =  − <em>x</em><sup>2</sup> − 6<em>x</em> − 19</span>
+<span
+class="math display"><em>h</em>(<em>x</em>) =  − <em>x</em><sup>2</sup> − 6<em>x</em>8</span></p>

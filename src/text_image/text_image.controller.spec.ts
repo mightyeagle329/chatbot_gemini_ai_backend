@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TextImageController } from './text_image.controller';
-import { TextImageService } from './text_image.service';
+import { GeminiTextImageController } from './text_image.controller';
+import { GeminiTextImageService } from './text_image.service';
 
 describe('FilesController', () => {
-  let controller: TextImageController;
+  let controller: GeminiTextImageController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [TextImageController],
-      providers: [TextImageService],
+      controllers: [GeminiTextImageController],
+      providers: [GeminiTextImageService],
     }).compile();
 
-    controller = module.get<TextImageController>(TextImageController);
+    controller = module.get<GeminiTextImageController>(GeminiTextImageController);
   });
 
   it('should be defined', () => {

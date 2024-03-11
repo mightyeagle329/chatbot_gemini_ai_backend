@@ -29,10 +29,10 @@ export class FirestoreService {
     await documentRef.set(data);
     return documentRef.id;
   }
-  async addTransaction(transaction: AITransaction): Promise<string> {
-    const documentRef = this.firestore.collection("ai_transactions").doc();
-    const res = await documentRef.set(transaction.toJson());
-    console.log(`${mm} .... addTransaction: Gemini AI: 🍎 🍎 ${res}`);
+  async addAITransaction(transaction: AITransaction): Promise<string> {
+    const documentRef = this.firestore.collection("AITransaction").doc();
+    const res:admin.firestore.WriteResult = await documentRef.set(transaction.toJson());
+    console.log(`${mm} .... add AITransaction: Firestore, writeTeam : 🍎 🍎 ${res.writeTime}`);
     return documentRef.id;
   }
   async addPaymentSucceeded(payload: any): Promise<string> {

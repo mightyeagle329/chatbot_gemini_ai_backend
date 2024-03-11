@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GeminiTextImageService } from './text_image.service';
+import { ConverterService } from './converter.service';
 
-describe('TextImageService', () => {
-  let service: GeminiTextImageService;
+describe('ConverterService', () => {
+  let service: ConverterService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GeminiTextImageService],
+      providers: [ConverterService],
     }).compile();
 
-    service = module.get<GeminiTextImageService>(GeminiTextImageService);
+    service = module.get<ConverterService>(ConverterService);
   });
 
   it('should be defined', () => {

@@ -1,4 +1,5 @@
-export class HistoryConfig {
+export class ChatRoleContext {
+  
   static getResponseWithLinks(): any {
     return [
       { role: "user", parts: "Help me learn" },

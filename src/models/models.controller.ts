@@ -11,7 +11,7 @@ export class FirestoreController {
     @Param("collection") tx: any,
     @Param("documentId") documentId: string
   ): Promise<any> {
-    return this.firestoreService.addTransaction(tx);
+    return this.firestoreService.addAITransaction(tx);
   }
 
   @Post(":collection")

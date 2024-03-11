@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GeminiTextImageService } from './text_image.service';
+import { OpenApiService } from './open_api.service';
 
-describe('TextImageService', () => {
-  let service: GeminiTextImageService;
+describe('OpenApiService', () => {
+  let service: OpenApiService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GeminiTextImageService],
+      providers: [OpenApiService],
     }).compile();
 
-    service = module.get<GeminiTextImageService>(GeminiTextImageService);
+    service = module.get<OpenApiService>(OpenApiService);
   });
 
   it('should be defined', () => {

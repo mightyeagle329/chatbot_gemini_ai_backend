@@ -1,6 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { GoogleGenerativeAI, StartChatParams } from "@google/generative-ai";
-import { HistoryConfig } from "./history_config";
+import {
+  ChatSession,
+  GoogleGenerativeAI,
+  StartChatParams,
+} from "@google/generative-ai";
+import { ChatRoleContext } from "./history_config";
 
 const mm = "🍎🍎🍎 ChatsService 🍎";
 
@@ -17,20 +21,21 @@ export class ChatsService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { totalTokens } = await model.countTokens(prompt);
     console.log(`${mm} Gemini AI tokens: 🍎 ${totalTokens} 🍎`);
+
     let history: any[];
     if (linkResponse) {
-      history = HistoryConfig.getResponseWithLinks();
+      history = ChatRoleContext.getResponseWithLinks();
     } else {
-      history = HistoryConfig.getResponseWithText()
+      history = ChatRoleContext.getResponseWithText();
     }
-    const result = await model
-      .startChat({
-        history: history,
-        generationConfig: {
-          maxOutputTokens: 1000,
-        },
-      })
-      .sendMessage(prompt);
+    const chat = model.startChat({
+      history: history,
+      generationConfig: {
+        maxOutputTokens: 1000,
+      },
+    });
+
+    const result = await chat.sendMessage(prompt);
 
     const response = result.response.text();
     const candidates = result.response.candidates;
@@ -55,7 +60,9 @@ export class ChatsService {
       );
     }
 
-    console.log(`${mm} 🥬🥬🥬 Gemini AI response, check json: 🥬 ${response} ... 🥬`);
-    return response;
+    console.log(
+      `${mm} 🥬🥬🥬 Gemini AI response, check tokens: 🥬 ${response} ... 🥬`
+    );
+    return result;
   }
 }

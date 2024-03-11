@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
+        "blang",
+        "Cmds",
         "ewallet",
         "ewallets",
         "examlink",
@@ -7,13 +9,22 @@
         "Firestore",
         "gapi",
         "idempotency",
+        "mathjax",
         "nestjs",
+        "nonstopmode",
+        "nopenin",
         "openai",
+        "openout",
+        "pandoc",
+        "pdflatex",
         "rapyd",
         "Sgela",
+        "texmf",
+        "TEXMFCNF",
         "Textservice",
         "tokenizable",
         "uuidv",
+        "vertexai",
         "Yebo"
     ]
 }
