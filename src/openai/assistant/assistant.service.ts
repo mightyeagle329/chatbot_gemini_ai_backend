@@ -1,11 +1,13 @@
 import { Injectable } from "@nestjs/common";
-import { AssistantCreate } from "./dto/models";
+import { Assistant } from "./dto/models";
 import Message from "openai";
 import OpenAI from "openai";
 
 const mm = "🍎🍎🍎 AssistantService : ";
 import { ThreadCreateParams } from "openai/resources/beta/threads/threads";
+import * as fs from "fs";
 
+import * as path from "path";
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -15,25 +17,82 @@ console.log(`${mm} ... my key : ${process.env.OPENAI_API_KEY}`);
  */
 @Injectable()
 export class AssistantService {
-  async createAssistant(assistantCreate: AssistantCreate): Promise<any> {
+  async createAssistant(
+    assistant: Assistant
+  ): Promise<Message.Beta.Assistants.Assistant> {
     console.log(
-      `${mm} ... creating assistant : ${JSON.stringify(assistantCreate)}`
+      `${mm} ... creating assistant : 🔵 ${JSON.stringify(assistant)}`
     );
-    const myAssistant = await openai.beta.assistants.create(
-      JSON.parse(JSON.stringify(assistantCreate))
+    const fileIds = [];
+    if (assistant.fileIds.length > 0) {
+      assistant.fileIds.forEach((a) => {
+        fileIds.push(a);
+      });
+    }
+    const ass: Message.Beta.Assistants.AssistantCreateParams = {
+      model: assistant.model,
+      file_ids: fileIds,
+      description: assistant.description,
+      name: assistant.name,
+      tools: [{ type: "retrieval" }],
+      instructions: assistant.instructions,
+    };
+    //
+    const assistantCreated = await openai.beta.assistants.create(ass);
+    console.log(
+      `${mm} assistant created: 🔵 ${JSON.stringify(assistantCreated)}`
     );
 
-    console.log(`${mm} assistant created: ${JSON.stringify(myAssistant)}`);
-    return myAssistant;
+    return assistantCreated;
+  }
+
+  async createAssistantFile(
+    assistantId: string,
+    fileId: string
+  ): Promise<Message.Beta.Assistants.Files.AssistantFile> {
+    const myAssistantFile = await openai.beta.assistants.files.create(
+      assistantId,
+      {
+        file_id: fileId,
+      }
+    );
+    return myAssistantFile;
+  }
+
+  async getAssistantFiles(
+    assistantId: string
+  ): Promise<Message.Beta.Assistants.Files.AssistantFilesPage> {
+    const myAssistantFiles =
+      await openai.beta.assistants.files.list(assistantId);
+    return myAssistantFiles;
+  }
+
+  async listAssistants(): Promise<Message.Beta.Assistants.AssistantsPage> {
+    const params: Message.Beta.Assistants.AssistantListParams = {
+      order: "desc",
+      limit: 100,
+    };
+    const myAssistants = await openai.beta.assistants.list(params);
+    console.log(
+      `${mm} Assistants found: 🔵 🔵 🔵 ${myAssistants.data.length} 🔵`
+    );
+    myAssistants.data.forEach((ass) => {
+      console.log(
+        `${mm} Assistant: 🔵 ${ass.name} 🔵 model: ${ass.model} 🔵 ${ass.description}`
+      );
+    });
+
+    return myAssistants;
   }
 
   async createMessage(
     threadId: string,
-    content: string
+    content: string, fileId: string
   ): Promise<Message.Beta.Threads.Messages.ThreadMessage> {
     let msgCreateParams: Message.Beta.Threads.MessageCreateParams = {
       content: content,
       role: "user",
+      file_ids: fileId == null? []: [fileId],
     };
     console.log(`${mm} ... creating message : ${threadId} - ${content}`);
     const threadMessage = await openai.beta.threads.messages.create(
@@ -47,127 +106,98 @@ export class AssistantService {
   async runThread(
     threadId: string,
     assistantId: string,
-    statusIntervalInSeconds: number
-  ): Promise<any> {
+  ): Promise<Message.Beta.Threads.Runs.Run> {
     console.log(
-      `${mm} ... runThread : assistantId: ${assistantId} threadId: ${threadId} statusIntervalInSeconds: ${statusIntervalInSeconds}`
+      `${mm} ... runThread : assistantId: ${assistantId} threadId: ${threadId} `
     );
     const run = await openai.beta.threads.runs.create(threadId, {
       assistant_id: assistantId,
     });
 
-    let interval = 5000;
-    if (statusIntervalInSeconds) {
-      interval = statusIntervalInSeconds;
-    }
-
-    return new Promise((resolve, reject) => {
-      const intervalId = setInterval(async () => {
-        const mRun = await this.checkRunStatus(threadId, run.id);
-        switch (mRun.status) {
-          case "queued":
-            console.log(`${mm} Thread run: queued status`);
-            break;
-          case "in_progress":
-            console.log(`${mm} Thread run: in_progress status`);
-            break;
-          case "requires_action":
-            console.log(`${mm} Thread run: requires_action status`);
-            break;
-          case "cancelling":
-            console.log(`${mm} Thread run: cancelling status`);
-            break;
-          case "cancelled":
-            console.log(`${mm} Thread run: cancelled status`);
-            break;
-          case "failed":
-            console.log(`${mm} Thread run: failed status`);
-            clearInterval(intervalId);
-            reject(new Error("Run failed"));
-            break;
-          case "completed":
-            console.log(
-              `${mm} Thread run: 🍎 completed status 🍎 completed at: ${run.completed_at}`
-            );
-            clearInterval(intervalId);
-            resolve(run);
-            break;
-          case "expired":
-            console.log(`${mm} Thread run: expired status`);
-            clearInterval(intervalId);
-            reject(new Error("Run expired"));
-            break;
-        }
-      }, interval);
-    });
-  }
-
-  async checkRunStatus(threadId: string, runId: string): Promise<any> {
-    console.log(`${mm} checking run status ...`);
-    const run = await openai.beta.threads.runs.retrieve(threadId, runId);
     return run;
   }
 
-  async createThread(
-    threadMessages: Message.Beta.Threads.ThreadCreateParams.Message[],
-    metaData: any
-  ): Promise<any> {
-    let params: ThreadCreateParams;
-    if (threadMessages && threadMessages.length > 0) {
-      params = {
-        messages: threadMessages,
-      };
-    }
-    console.log(`${mm} creating thread ...`);
+  async checkRunStatus(
+    threadId: string,
+    runId: string
+  ): Promise<Message.Beta.Threads.Runs.Run> {
+    console.log(
+      `${mm} getting thread run status ... threadId: ${threadId} runId: ${runId}`
+    );
+    const run = await openai.beta.threads.runs.retrieve(threadId, runId);
+    return run;
+  }
+  async getAssistants(): Promise<Message.Beta.Assistants.AssistantsPage> {
+    console.log(`${mm} getting assistants ...`);
+    const assistants = await openai.beta.assistants.list();
 
-    let thread: Message.Beta.Threads.Thread;
-    if (params) {
-      thread = await openai.beta.threads.create(params);
-    } else {
-      thread = await openai.beta.threads.create();
-    }
+    return assistants;
+  }
+  async getThread(threadId: string): Promise<Message.Beta.Threads.Thread> {
+    console.log(`${mm} getThread ...`);
+    const thread = await openai.beta.threads.retrieve(threadId);
+
+    return thread;
+  }
+  async createThread(
+    messages: any[]
+  ): Promise<Message.Beta.Threads.Thread> {
+    console.log(`${mm} creating thread with messages : ${messages.length}...`);
+
+    const params: Message.Beta.Threads.ThreadCreateParams = {
+      messages: messages,
+    };
+    const thread = await openai.beta.threads.create(params);
+
     console.log(`${mm} thread created: 🍎🍎🍎 ${JSON.stringify(thread)} ...`);
 
     return thread;
   }
 
-  async uploadFiles(files: Express.Multer.File[]): Promise<any> {
-    let assistantFiles: Message.Files.FileObject[] = [];
-    try {
-      const convertedFiles: File[] = this.convertToFiles(files);
+  async uploadFile(
+    path: string,
+    name: string
+  ): Promise<Message.Files.FileObject> {
+    const mFile: File = new File([fs.readFileSync(path)], name);
 
-      for (const file of convertedFiles) {
-        const fileResult = await openai.files.create({
-          file: file,
-          purpose: "assistants",
-        });
-        assistantFiles.push(fileResult);
-      }
+    console.log(
+      `${mm} assistant file to upload, name: 🍎 ${mFile.name} ${mFile.size} bytes 🍎`
+    );
+    try {
+      const fileResult = await openai.files.create({
+        file: mFile,
+        purpose: "assistants",
+      });
+
       console.log(
-        `${mm} assistant files uploaded: 🍎 ${assistantFiles.length} 🍎`
+        `${mm} assistant file uploaded, status: 🍎 ${fileResult.status} 🍎`
       );
 
-      return assistantFiles;
+      return fileResult;
     } catch (error) {
-      console.error("Error uploading files:", error);
+      console.error("Error uploading file:", error);
       throw error;
     }
   }
-  convertToFiles(files: Express.Multer.File[]): File[] {
-    return files.map((file) => file as unknown as File);
-  }
-  async listModels(): Promise<any[]> {
-    const list = await openai.models.list();
-    const mList: any[] = [];
 
-    for await (const model of list) {
-      mList.push(model);
-      console.log(`${mm} OpenAI model: ${model}`);
-    }
-    console.log(`${mm} OpenAI models found: 🍎 ${mList.length} 🍎`);
-    mList.forEach((model) => {
-      console.log(`${mm} OpenAI model: 🍎 ${JSON.stringify(model)} 🍎`);
+  async listModels(): Promise<Message.Models.ModelsPage> {
+    const list = await openai.models.list();
+
+    console.log(`${mm} OpenAI models found: 🔵 🔵 ${list.data.length} 🍎`);
+    list.data.forEach((model) => {
+      console.log(`${mm} OpenAI model: 🔵 🔵 🔵 ${JSON.stringify(model)} 🔵`);
     });
-    return mList;
+    return list;
+  }
+
+  async getThreadMessages(
+    threadId: string
+  ): Promise<Message.Beta.Threads.Messages.ThreadMessagesPage> {
+    const messages = await openai.beta.threads.messages.list(threadId);
+    console.log(
+      `${mm} Thread result Messages: 🍎 ${JSON.stringify(messages)} 🍎 `
+    );
+
+    return messages;
   }
 }

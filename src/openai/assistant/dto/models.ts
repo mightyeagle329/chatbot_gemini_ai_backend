@@ -1,8 +1,11 @@
-export class  AssistantCreate {
+export class Assistant {
+  id: string;
   name: string;
+  description: string;
   instructions: string;
   tools: Tool[];
   model: string;
+  fileIds: string[]
 }
 export class  Tool {
   type: string;
